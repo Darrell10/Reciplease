@@ -7,9 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B66C28C223CF9D0900CEFE22 /* IngredientListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B66C28C123CF9D0900CEFE22 /* IngredientListViewController.swift */; };
 		B6B8F0D323CE571D00E46295 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6B8F0D223CE571D00E46295 /* AppDelegate.swift */; };
 		B6B8F0D523CE571D00E46295 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6B8F0D423CE571D00E46295 /* SceneDelegate.swift */; };
-		B6B8F0D723CE571D00E46295 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6B8F0D623CE571D00E46295 /* ViewController.swift */; };
 		B6B8F0DA23CE571D00E46295 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B6B8F0D823CE571D00E46295 /* Main.storyboard */; };
 		B6B8F0DD23CE571D00E46295 /* Reciplease.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = B6B8F0DB23CE571D00E46295 /* Reciplease.xcdatamodeld */; };
 		B6B8F0DF23CE571F00E46295 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B6B8F0DE23CE571F00E46295 /* Assets.xcassets */; };
@@ -17,10 +17,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		B66C28C123CF9D0900CEFE22 /* IngredientListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IngredientListViewController.swift; sourceTree = "<group>"; };
 		B6B8F0CF23CE571D00E46295 /* Reciplease.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Reciplease.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B6B8F0D223CE571D00E46295 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B6B8F0D423CE571D00E46295 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		B6B8F0D623CE571D00E46295 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		B6B8F0D923CE571D00E46295 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		B6B8F0DC23CE571D00E46295 /* Reciplease.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Reciplease.xcdatamodel; sourceTree = "<group>"; };
 		B6B8F0DE23CE571F00E46295 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -88,7 +88,7 @@
 		B6B8F0EB23CE574800E46295 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				B6B8F0D623CE571D00E46295 /* ViewController.swift */,
+				B66C28C123CF9D0900CEFE22 /* IngredientListViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -174,7 +174,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B6B8F0DD23CE571D00E46295 /* Reciplease.xcdatamodeld in Sources */,
-				B6B8F0D723CE571D00E46295 /* ViewController.swift in Sources */,
+				B66C28C223CF9D0900CEFE22 /* IngredientListViewController.swift in Sources */,
 				B6B8F0D323CE571D00E46295 /* AppDelegate.swift in Sources */,
 				B6B8F0D523CE571D00E46295 /* SceneDelegate.swift in Sources */,
 			);
