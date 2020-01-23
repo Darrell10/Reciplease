@@ -16,6 +16,13 @@
 		B6B8F0DD23CE571D00E46295 /* Reciplease.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = B6B8F0DB23CE571D00E46295 /* Reciplease.xcdatamodeld */; };
 		B6B8F0DF23CE571F00E46295 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B6B8F0DE23CE571F00E46295 /* Assets.xcassets */; };
 		B6B8F0E223CE571F00E46295 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B6B8F0E023CE571F00E46295 /* LaunchScreen.storyboard */; };
+		B6BDAD4823D469BE002D3034 /* RecipeTapBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6BDAD4723D469BE002D3034 /* RecipeTapBarController.swift */; };
+		B6C5661323DA1C73002222CF /* RecipeProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6C5661223DA1C73002222CF /* RecipeProtocol.swift */; };
+		B6C5661523DA1C89002222CF /* RecipeService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6C5661423DA1C89002222CF /* RecipeService.swift */; };
+		B6C5661723DA1C9B002222CF /* ApiConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6C5661623DA1C9B002222CF /* ApiConfig.swift */; };
+		B6C5661923DA1D55002222CF /* MapperEncoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6C5661823DA1D55002222CF /* MapperEncoder.swift */; };
+		B6C5661B23DA1D9F002222CF /* NetWorkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6C5661A23DA1D9F002222CF /* NetWorkError.swift */; };
+		B6C5661D23DA1E15002222CF /* RecipeDecodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6C5661C23DA1E15002222CF /* RecipeDecodable.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +37,13 @@
 		B6B8F0DE23CE571F00E46295 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B6B8F0E123CE571F00E46295 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		B6B8F0E323CE571F00E46295 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B6BDAD4723D469BE002D3034 /* RecipeTapBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeTapBarController.swift; sourceTree = "<group>"; };
+		B6C5661223DA1C73002222CF /* RecipeProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeProtocol.swift; sourceTree = "<group>"; };
+		B6C5661423DA1C89002222CF /* RecipeService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeService.swift; sourceTree = "<group>"; };
+		B6C5661623DA1C9B002222CF /* ApiConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiConfig.swift; sourceTree = "<group>"; };
+		B6C5661823DA1D55002222CF /* MapperEncoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapperEncoder.swift; sourceTree = "<group>"; };
+		B6C5661A23DA1D9F002222CF /* NetWorkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetWorkError.swift; sourceTree = "<group>"; };
+		B6C5661C23DA1E15002222CF /* RecipeDecodable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeDecodable.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -67,6 +81,7 @@
 				B6B8F0EA23CE574100E46295 /* View */,
 				B6B8F0E923CE573200E46295 /* Model */,
 				B6B8F0E323CE571F00E46295 /* Info.plist */,
+				B6C5661623DA1C9B002222CF /* ApiConfig.swift */,
 			);
 			path = Reciplease;
 			sourceTree = "<group>";
@@ -77,6 +92,11 @@
 				B6B8F0DB23CE571D00E46295 /* Reciplease.xcdatamodeld */,
 				B635001323D0CE690019555D /* CoreDataStack.swift */,
 				B635001523D0CEA10019555D /* CoreDataManager.swift */,
+				B6C5661223DA1C73002222CF /* RecipeProtocol.swift */,
+				B6C5661423DA1C89002222CF /* RecipeService.swift */,
+				B6C5661823DA1D55002222CF /* MapperEncoder.swift */,
+				B6C5661A23DA1D9F002222CF /* NetWorkError.swift */,
+				B6C5661C23DA1E15002222CF /* RecipeDecodable.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -87,6 +107,7 @@
 				B6B8F0E023CE571F00E46295 /* LaunchScreen.storyboard */,
 				B6B8F0D823CE571D00E46295 /* Main.storyboard */,
 				B6B8F0DE23CE571F00E46295 /* Assets.xcassets */,
+				B6BDAD4723D469BE002D3034 /* RecipeTapBarController.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -179,10 +200,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B6C5661723DA1C9B002222CF /* ApiConfig.swift in Sources */,
+				B6BDAD4823D469BE002D3034 /* RecipeTapBarController.swift in Sources */,
+				B6C5661D23DA1E15002222CF /* RecipeDecodable.swift in Sources */,
+				B6C5661323DA1C73002222CF /* RecipeProtocol.swift in Sources */,
 				B635001623D0CEA10019555D /* CoreDataManager.swift in Sources */,
 				B635001423D0CE690019555D /* CoreDataStack.swift in Sources */,
+				B6C5661523DA1C89002222CF /* RecipeService.swift in Sources */,
 				B6B8F0DD23CE571D00E46295 /* Reciplease.xcdatamodeld in Sources */,
+				B6C5661923DA1D55002222CF /* MapperEncoder.swift in Sources */,
 				B66C28C223CF9D0900CEFE22 /* IngredientViewController.swift in Sources */,
+				B6C5661B23DA1D9F002222CF /* NetWorkError.swift in Sources */,
 				B6B8F0D323CE571D00E46295 /* AppDelegate.swift in Sources */,
 				B6B8F0D523CE571D00E46295 /* SceneDelegate.swift in Sources */,
 			);
@@ -260,7 +288,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -314,7 +342,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;

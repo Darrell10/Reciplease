@@ -11,7 +11,7 @@ import UIKit
 class IngredientViewController: UIViewController {
     
     
-    @IBOutlet weak var ingredientTableView: UITableView! //{ didSet { ingredientTableView.tableFooterView = UIView() } }
+    @IBOutlet weak var ingredientTableView: UITableView! { didSet { ingredientTableView.tableFooterView = UIView() } }
     @IBOutlet weak var addIngredientTF: UITextField!
     
     private var coreDataManager: CoreDataManager?
@@ -23,11 +23,11 @@ class IngredientViewController: UIViewController {
         coreDataManager = CoreDataManager(coreDataStack: coredataStack)
     }
     
-    
     @IBAction func addBt(_ sender: Any) {
         guard let ingredientToAdd = addIngredientTF.text else {return}
         coreDataManager?.addIngredient(name: ingredientToAdd)
         ingredientTableView.reloadData()
+        addIngredientTF.text = ""
     }
     
     @IBAction func clearBt(_ sender: Any) {
@@ -37,8 +37,10 @@ class IngredientViewController: UIViewController {
     
     @IBAction func searchBt(_ sender: Any) {
     }
-    
+      
 }
+
+// MARK: - Table View
 
 extension IngredientViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -46,12 +48,24 @@ extension IngredientViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let ingredientCell = tableView.dequeueReusableCell(withIdentifier: "ingredientCell", for: indexPath)
-        ingredientCell.textLabel?.text = coreDataManager?.ingredients[indexPath.row].name
-        return ingredientCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "ingredientCell", for: indexPath)
+        cell.textLabel?.text = coreDataManager?.ingredients[indexPath.row].name
+        return cell
     }
 }
 
-extension IngredientViewController: UITableViewDelegate {
+
+// MARK: - Dismiss Keyboard
+
+extension IngredientViewController : UITextFieldDelegate {
+    
+    @IBAction func dismissKeyboard(_ sender: UITapGestureRecognizer) {
+        addIngredientTF.resignFirstResponder()
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
     
 }

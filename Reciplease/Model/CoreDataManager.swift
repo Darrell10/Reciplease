@@ -42,4 +42,15 @@ final class CoreDataManager {
         ingredients.forEach { managedObjectContext.delete($0) }
         coreDataStack.saveContext()
     }
+    
+    // MARK: - Manage Recipe Entity
+    
+    func addFavoriteRecipe(){
+        
+    }
+    
+    func deleteFavoriteRecipe(){
+        
+    }
+    
 }
