@@ -37,6 +37,15 @@ final class CoreDataManager {
         ingredient.name = name
         coreDataStack.saveContext()
     }
+    
+    func deleteIngredient(_ ingredient: Ingredient){
+        coreDataStack.mainContext.delete(ingredient)
+        do {
+            try coreDataStack.mainContext.save()
+        } catch {
+            print(error.localizedDescription)
+        }
+    }
 
     func deleteAllIngredients() {
         ingredients.forEach { managedObjectContext.delete($0) }

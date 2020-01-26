@@ -9,6 +9,6 @@
 import Foundation
 
 class ApiConfig {
-    static let edamanKey = "cdad1a6f9615553283324442c1e09a31"
-    static let edamanAppId = "9ad76c73"
+    static let edamanKey = "54a9e75cda590c8843e4394203075558"
+    static let edamanAppId = "e956692d"
 }
