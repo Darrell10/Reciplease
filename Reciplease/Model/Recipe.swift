@@ -10,9 +10,6 @@ import Foundation
 
 // MARK: - Recipe
 struct Recipe: Decodable {
-    //let q: String
-    //let from, to: Int
-    //let more: Bool
     let count: Int
     let hits: [Hit]
 }

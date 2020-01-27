@@ -39,9 +39,9 @@ class SearchViewController: UIViewController {
         recipeService.getRecipe(text: ingredientsList) { result in
             switch result {
             case .success(let data):
-                //print(data.hits[0].recipe.url)
-                print(data.count)
-                //self.performSegue(withIdentifier: "RecipeListSegue", sender: self)
+                print(data.hits[0].recipe.url)
+                //print(data.count)
+            self.performSegue(withIdentifier: "RecipeListSegue", sender: self)
             case .failure(let error):
                 print(error.localizedDescription)
             }
@@ -52,10 +52,9 @@ class SearchViewController: UIViewController {
         if segue.identifier == "RecipeListSegue" {
             guard let result = segue.destination as? RecipeTableViewController else { return }
             result.recipeList = self.recipesList
-
+            
         }
     }
-      
 }
 
 // MARK: - Table View DataSource
