@@ -15,6 +15,7 @@ class SearchViewController: UIViewController {
     private var recipesList = [Hit]()
     
     @IBOutlet weak var ingredientTableView: UITableView! { didSet { ingredientTableView.tableFooterView = UIView() } }
+    
     @IBOutlet weak var addIngredientTF: UITextField!
     
     override func viewDidLoad() {
@@ -39,9 +40,9 @@ class SearchViewController: UIViewController {
         recipeService.getRecipe(text: ingredientsList) { result in
             switch result {
             case .success(let data):
-                print(data.hits[0].recipe.url)
                 //print(data.count)
-            self.performSegue(withIdentifier: "RecipeListSegue", sender: self)
+                self.recipesList = data.hits
+                self.performSegue(withIdentifier: "RecipeListSegue", sender: self)
             case .failure(let error):
                 print(error.localizedDescription)
             }
@@ -50,8 +51,9 @@ class SearchViewController: UIViewController {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "RecipeListSegue" {
-            guard let result = segue.destination as? RecipeTableViewController else { return }
-            result.recipeList = self.recipesList
+            guard let successVC = segue.destination as? RecipeTableViewController else { return }
+            successVC.recipeList = recipesList
+            //print(result.recipeList.count)
             
         }
     }
