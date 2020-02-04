@@ -9,6 +9,27 @@
 import UIKit
 
 class RecipeTableViewCell: UITableViewCell {
+    
+    var recipe: RecipeClass? {
+        didSet {
+            guard let recipe = recipe else{return}
+            recipeImage.loadIcon(recipe.image)
+            recipeImage.gradientImageWithBounds(CGRect(x: 0, y: 0, width: 200, height: 200), colors: [UIColor.yellowColor().CGColor, UIColor.blueColor().CGColor])
+            recipeTitleLabel.text = recipe.label
+            var healthLabelString = String()
+            for label in recipe.healthLabels{
+                healthLabelString += label + "  "
+            }
+            healthListLabel.text = healthLabelString
+            if recipe.totalTime != 0 {
+                timeLabel.text = String(recipe.totalTime) + " min"
+            }else{
+                timeLabel.text = "No time added"
+            }
+            yieldLabel.text = String(Int(recipe.yield))
+            
+        }
+    }
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -21,10 +42,11 @@ class RecipeTableViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
-    
-
-    @IBOutlet weak var ingredientListLabel: UILabel!
-    @IBOutlet weak var titleRecipeLabel: UILabel!
-    
+    @IBOutlet weak var healthListLabel: UILabel!
+    @IBOutlet weak var recipeImage: UIImageView!
+    @IBOutlet weak var timeLabel: UILabel!
+    @IBOutlet weak var recipeTitleLabel: UILabel!
+    @IBOutlet weak var yieldLabel: UILabel!
+    @IBOutlet weak var recipeView: UIView!
     
 }

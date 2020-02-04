@@ -10,23 +10,32 @@ import UIKit
 
 class RecipeTableViewController: UITableViewController {
     
-    let recipeCellID = "RecipeTableViewCell"
-
+    private let recipeCellID = "RecipeTableViewCell"
     var recipe: RecipeClass?
     var recipeList = [Hit]()
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        tableView.tableFooterView = UIView()
         self.registerTableViewCells()
     }
     
     private func registerTableViewCells(){
-        let recipeCell = UINib(nibName: "RecipeTableViewCell", bundle: nil)
-        self.tableView.register(recipeCell, forCellReuseIdentifier: "RecipeTableViewCell")
+        let recipeCell = UINib(nibName: recipeCellID, bundle: nil)
+        self.tableView.register(recipeCell, forCellReuseIdentifier: recipeCellID)
+    }
+    
+        // MARK: - Segue
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+    if segue.identifier == "segueID" {
+        guard let SuccessVC = segue.destination as? DetailViewController  else { return }
+        SuccessVC.recipe = self.recipe
+        }
     }
 
-    // MARK: - Table view data source
+    // MARK: - Table view data source and Delegate
     
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
@@ -39,8 +48,7 @@ class RecipeTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: recipeCellID, for: indexPath) as! RecipeTableViewCell
         let recipe = recipeList[indexPath.row].recipe
-        cell.titleRecipeLabel.text = recipe.label
-        cell.ingredientListLabel.text = recipe.ingredientLines[0]
+        cell.recipe = recipe
         return cell
         
     }
@@ -50,12 +58,6 @@ class RecipeTableViewController: UITableViewController {
         performSegue(withIdentifier: "segueID", sender: indexPath)
     }
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "segueID" {
-            guard let SuccessVC = segue.destination as? DetailViewController  else { return }
-            SuccessVC.recipe = self.recipe
-            }
-        }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 200

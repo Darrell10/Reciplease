@@ -15,8 +15,10 @@ class SearchViewController: UIViewController {
     private var recipesList = [Hit]()
     
     @IBOutlet weak var ingredientTableView: UITableView! { didSet { ingredientTableView.tableFooterView = UIView() } }
-    
     @IBOutlet weak var addIngredientTF: UITextField!
+    @IBOutlet weak var searchButton: UIButton!
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,6 +31,9 @@ class SearchViewController: UIViewController {
             ingredientTableView.reloadData()
             addIngredientTF.text = ""
         }
+        else {
+            presentAlert(title: "error", message: "No ingredients added")
+        }
     }
     
     @IBAction func clearBt(_ sender: Any) {
@@ -37,24 +42,41 @@ class SearchViewController: UIViewController {
     }
     
     @IBAction func searchBt(_ sender: Any) {
+        if ingredientsList.count == 0 {
+            presentAlert(title: "Error", message: "Please add ingredients")
+        } else {
+            getRecipeList()
+        }
+    }
+    
+    private func getRecipeList() {
+        toggleActivityIndicator(shown: true)
         recipeService.getRecipe(text: ingredientsList) { result in
+            self.toggleActivityIndicator(shown: false)
             switch result {
             case .success(let data):
-                //print(data.count)
                 self.recipesList = data.hits
-                self.performSegue(withIdentifier: "RecipeListSegue", sender: self)
+                if data.count == 0 {
+                    self.presentAlert(title: "No recipe Found", message: "Please add ingredients")
+                } else {
+                    self.performSegue(withIdentifier: "RecipeListSegue", sender: self)
+                }
             case .failure(let error):
+                self.presentAlert(title: "Error", message: "Data failed")
                 print(error.localizedDescription)
             }
         }
+    }
+    
+    private func toggleActivityIndicator (shown: Bool) {
+        searchButton.isHidden = shown
+        activityIndicator.isHidden = !shown
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "RecipeListSegue" {
             guard let successVC = segue.destination as? RecipeTableViewController else { return }
             successVC.recipeList = recipesList
-            //print(result.recipeList.count)
-            
         }
     }
 }

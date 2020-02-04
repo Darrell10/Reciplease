@@ -20,7 +20,6 @@ class DetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         updateView()
-        print(recipe!.image)
 
         // Do any additional setup after loading the view.
     }
@@ -28,8 +27,6 @@ class DetailViewController: UIViewController {
     func updateView() {
         titleRecipeLabel.text = recipe?.label
         recipeIV.loadIcon(recipe!.image)
-        recipeIV.contentMode = .scaleAspectFill
-        
     }
     
     
