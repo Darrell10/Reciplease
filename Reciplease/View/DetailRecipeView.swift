@@ -21,9 +21,12 @@ class DetailRecipeView: UIView {
     }
     
     func setup () {
-        let gradient = CAGradientLayer()
-        gradient.frame = frame
-        
+        layer.shadowColor = UIColor.darkGray.cgColor
+        layer.shadowRadius = 3
+        alpha = 0.95
+        layer.cornerRadius = 10
+        layer.shadowOffset = CGSize(width: 0, height: 3)
+        layer.shadowOpacity = 0.75
     }
 }
 

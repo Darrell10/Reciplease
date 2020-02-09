@@ -30,8 +30,7 @@ class SearchViewController: UIViewController {
             ingredientsList.append(ingredientToAdd)
             ingredientTableView.reloadData()
             addIngredientTF.text = ""
-        }
-        else {
+        } else {
             presentAlert(title: "error", message: "No ingredients added")
         }
     }

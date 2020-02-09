@@ -7,26 +7,40 @@
 //
 
 import UIKit
+import SDWebImage
 
 class DetailViewController: UIViewController {
     
     var recipe: RecipeClass?
+    private var coreDataManager: CoreDataManager?
     
     
     @IBOutlet weak var titleRecipeLabel: UILabel!
     @IBOutlet weak var recipeIV: UIImageView!
-    
+    @IBOutlet weak var favoriteRecipeBtn: UIBarButtonItem!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         updateView()
+        guard let appdelegate = UIApplication.shared.delegate as? AppDelegate else { return }
+        let coredataStack = appdelegate.coreDataStack
+        coreDataManager = CoreDataManager(coreDataStack: coredataStack)
 
         // Do any additional setup after loading the view.
     }
     
     func updateView() {
         titleRecipeLabel.text = recipe?.label
-        recipeIV.loadIcon(recipe!.image)
+        recipeIV.sd_setImage(with: URL(string: "\(recipe!.url)"), placeholderImage: UIImage(named: "placeholder.png"))
+        //recipeIV.loadIcon(recipe!.image)
+        favoriteRecipeBtn.image = UIImage(imageLiteralResourceName: "favorite")
+        print(recipe?.url as Any)
+    }
+    
+    
+    @IBAction func addToFavorite(_ sender: Any) {
+        favoriteRecipeBtn.image = UIImage(imageLiteralResourceName: "favorite_selected")
+        coreDataManager?.addFavoriteRecipe(label: recipe!.label)
     }
     
     

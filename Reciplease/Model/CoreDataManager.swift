@@ -16,11 +16,11 @@ final class CoreDataManager {
     private let coreDataStack: CoreDataStack
     private let managedObjectContext: NSManagedObjectContext
 
-    var ingredients: [Ingredient] {
-        let request: NSFetchRequest<Ingredient> = Ingredient.fetchRequest()
-        request.sortDescriptors = [NSSortDescriptor(key: "name", ascending: true)]
-        guard let ingredients = try? managedObjectContext.fetch(request) else { return [] }
-        return ingredients
+    var favorite: [FavoriteRecipe] {
+        let request: NSFetchRequest<FavoriteRecipe> = FavoriteRecipe.fetchRequest()
+        request.sortDescriptors = [NSSortDescriptor(key: "label", ascending: true)]
+        guard let favoriteRecipes = try? managedObjectContext.fetch(request) else { return [] }
+        return favoriteRecipes
     }
 
     // MARK: - Initializer
@@ -29,36 +29,22 @@ final class CoreDataManager {
         self.coreDataStack = coreDataStack
         self.managedObjectContext = coreDataStack.mainContext
     }
-
-    // MARK: - Manage Ingredient Entity
-
-    func addIngredient(name: String) {
-        let ingredient = Ingredient(context: managedObjectContext)
-        ingredient.name = name
-        coreDataStack.saveContext()
-    }
-    
-    func deleteIngredient(_ ingredient: Ingredient){
-        coreDataStack.mainContext.delete(ingredient)
-        do {
-            try coreDataStack.mainContext.save()
-        } catch {
-            print(error.localizedDescription)
-        }
-    }
-
-    func deleteAllIngredients() {
-        ingredients.forEach { managedObjectContext.delete($0) }
-        coreDataStack.saveContext()
-    }
     
     // MARK: - Manage Recipe Entity
     
-    func addFavoriteRecipe(){
-        
+    func addFavoriteRecipe(label: String){
+        let favoriteRecipe = FavoriteRecipe(context: managedObjectContext)
+        favoriteRecipe.label = label
+        coreDataStack.saveContext()
     }
     
-    func deleteFavoriteRecipe(){
+    func deleteFavoriteRecipe(_ favorite: FavoriteRecipe){
+        coreDataStack.mainContext.delete(favorite)
+                do {
+                    try coreDataStack.mainContext.save()
+                } catch {
+                    print(error.localizedDescription)
+                }
         
     }
     
