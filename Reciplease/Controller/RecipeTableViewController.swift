@@ -8,7 +8,9 @@
 
 import UIKit
 
-class RecipeTableViewController: UITableViewController {
+final class RecipeTableViewController: UITableViewController {
+    
+        // MARK: - Property
     
     private let recipeCellID = "RecipeTableViewCell"
     var recipe: RecipeClass?
@@ -20,12 +22,14 @@ class RecipeTableViewController: UITableViewController {
         registerTableViewCells()
     }
     
+    // Load Xib Cell
     private func registerTableViewCells(){
         let recipeCell = UINib(nibName: recipeCellID, bundle: nil)
         tableView.register(recipeCell, forCellReuseIdentifier: recipeCellID)
     }
     
-    func convertImageDataFromUrl(stringImageUrl: String) -> Data{
+    // Convert image Url to Data
+    private func convertImageDataFromUrl(stringImageUrl: String) -> Data{
         guard let imageUrl = URL(string: stringImageUrl) else {return Data()}
         guard let data = try? Data(contentsOf: imageUrl) else {return Data()}
         return data

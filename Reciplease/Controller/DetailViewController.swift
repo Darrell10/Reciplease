@@ -17,6 +17,12 @@ final class DetailViewController: UIViewController {
     @IBOutlet weak var titleRecipeLabel: UILabel!
     @IBOutlet weak var recipeIV: UIImageView!
     @IBOutlet weak var favoriteRecipeBtn: UIBarButtonItem!
+    @IBOutlet weak var timeLabel: UILabel!
+    @IBOutlet weak var ingredientLine: UITableView! { didSet { ingredientLine.tableFooterView = UIView() } }
+    
+    
+
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,7 +30,7 @@ final class DetailViewController: UIViewController {
         let coredataStack = appdelegate.coreDataStack
         coreDataManager = CoreDataManager(coreDataStack: coredataStack)
         updateView()
-        //checkFavorite()
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -34,11 +40,15 @@ final class DetailViewController: UIViewController {
     
     func updateView() {
         titleRecipeLabel.text = recipeData?.name
+        guard let time = Int(recipeData?.totalTime ?? "0")?.convertTimeToString else{return}
+        let convertTime = String(time)
+        timeLabel.text = "Prepare time: \(convertTime)"
         recipeIV.image = UIImage(data: recipeData!.image)
     }
     
     // MARK: - CoreDataManager Functions
     
+    // Store favorite recipe
     private func storeFavorite(){
         coreDataManager?.addFavoriteRecipe(
             label: recipeData!.name,
@@ -50,16 +60,19 @@ final class DetailViewController: UIViewController {
         )
     }
     
+    // Delete favorite Recipe
     private func deleteFavorite(){
-        coreDataManager?.deleteFromDetailFavorite(recipeName: recipeData!.name)
+        guard let recipeLabel = recipeData?.name else { return }
+        coreDataManager?.deleteFavorite(recipeName: recipeLabel)
     }
     
-    func checkFavorite() {
-        guard coreDataManager?.checkIfFavorite(recipeName: recipeData!.name ) == true else {
+    // check if recipe is favorite
+    private func checkFavorite() {
+        guard let recipeLabel = recipeData?.name else { return }
+        guard coreDataManager?.checkIfFavorite(recipeName: recipeLabel) == true else {
             favoriteRecipeBtn.image = UIImage(named: "favorite")
             return }
         favoriteRecipeBtn.image = UIImage(named: "favorite_selected")
-        
     }
     
     // MARK: - Action buttons
@@ -71,6 +84,7 @@ final class DetailViewController: UIViewController {
         } else {
             favoriteRecipeBtn.image = UIImage(named: "favorite")
             deleteFavorite()
+            navigationController?.popViewController(animated: true)
         }
     }
     
@@ -88,6 +102,7 @@ extension DetailViewController: UITableViewDelegate, UITableViewDataSource {
         
         guard let recipe = self.recipeData else {return 0}
         return recipe.ingredientLines.count
+        
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

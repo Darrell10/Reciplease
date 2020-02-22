@@ -12,7 +12,7 @@ import XCTest
 
 final class AdamanServiceTests: XCTestCase {
     
-    var text = ["Lemon"]
+    var text = ["Tagada"]
     
     func testGetrecipe_WhenNoDataIsPassed_ThenShouldReturnFailedCallback() {
         let session = MockAdamanSession(fakeResponse: FakeResponse(response: nil, data: nil))
@@ -59,20 +59,20 @@ final class AdamanServiceTests: XCTestCase {
         wait(for: [expectation], timeout: 0.01)
     }
     
-//    func testGetData_WhenCorrectDataIsPassed_ThenShouldReturnSuccededCallback() {
-//        let session = MockAdamanSession(fakeResponse: FakeResponse(response: FakeResponseData.responseOK, data: FakeResponseData.correctData))
-//        let requestService = RecipeService(session: session)
-//        let expectation = XCTestExpectation(description: "Wait for queue change.")
-//        requestService.getRecipe(text: text) { result in
-//            guard case .success(let data) = result else {
-//                XCTFail("Test getData method with correct data failed.")
-//                return
-//            }
-//            XCTAssertTrue(data.hits[0].recipe.label == "Lemon Ice Cream and Raspberry Granita Sundaes")
-//            expectation.fulfill()
-//        }
-//        wait(for: [expectation], timeout: 0.01)
-//    }
+    func testGetData_WhenCorrectDataIsPassed_ThenShouldReturnSuccededCallback() {
+        let session = MockAdamanSession(fakeResponse: FakeResponse(response: FakeResponseData.responseOK, data: FakeResponseData.correctData))
+        let requestService = RecipeService(session: session)
+        let expectation = XCTestExpectation(description: "Wait for queue change.")
+        requestService.getRecipe(text: text) { result in
+            guard case .success(let data) = result else {
+                XCTFail("Test getData method with correct data failed.")
+                return
+            }
+            XCTAssertTrue(data.hits[0].recipe.label == "Sweet Berry Froyo Treats")
+            expectation.fulfill()
+        }
+        wait(for: [expectation], timeout: 0.01)
+    }
     
     
 }

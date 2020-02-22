@@ -10,6 +10,8 @@ import UIKit
 
 class FavoriteTableViewController: UITableViewController {
     
+    // MARK: - Property
+    
     private let recipeCellID = "RecipeTableViewCell"
     private var coreDataManager: CoreDataManager?
     var recipe: RecipeFavorite?
@@ -27,10 +29,13 @@ class FavoriteTableViewController: UITableViewController {
         tableView.reloadData()
     }
     
+    /// Load Xib Cell
     private func registerTableViewCells(){
         let recipeCell = UINib(nibName: recipeCellID, bundle: nil)
         tableView.register(recipeCell, forCellReuseIdentifier: recipeCellID)
     }
+    
+    //@IBAction func unwindToWelcome(segue:UIStoryboardSegue) { }
     
     // MARK: - Segue
     
@@ -43,6 +48,7 @@ class FavoriteTableViewController: UITableViewController {
     
     // MARK: - Table view data source and Delegate
     
+    // Show number of row
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return coreDataManager?.favorite.count ?? 0
     }
@@ -56,10 +62,11 @@ class FavoriteTableViewController: UITableViewController {
         return cell
     }
     
+    // Delete Recipe from tableView swipe
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            guard let recipeToDelete = coreDataManager?.favorite[indexPath.row] else { return }
-            coreDataManager?.deleteFavoriteRecipe(recipeToDelete)
+            guard let recipeToDelete = coreDataManager?.favorite[indexPath.row].label else { return }
+            coreDataManager?.deleteFavorite(recipeName: recipeToDelete)
             tableView.deleteRows(at: [indexPath], with: .fade)
         }
     }

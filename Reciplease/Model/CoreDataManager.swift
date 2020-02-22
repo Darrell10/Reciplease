@@ -44,18 +44,8 @@ final class CoreDataManager {
         coreDataStack.saveContext()
     }
     
-    /// Delete favorite from FavoriteTableView
-    func deleteFavoriteRecipe(_ favorite: RecipeFavorite){
-        coreDataStack.mainContext.delete(favorite)
-        do {
-            try coreDataStack.mainContext.save()
-        } catch {
-            print(error.localizedDescription)
-        }
-    }
-    
-    /// Delete favorite from DetailFavorite
-    func deleteFromDetailFavorite(recipeName: String) {
+    /// Delete favorite in CoreData
+    func deleteFavorite(recipeName: String) {
         let request: NSFetchRequest<RecipeFavorite> = RecipeFavorite.fetchRequest()
         let predicate = NSPredicate(format: "label == %@", recipeName)
         request.predicate = predicate
