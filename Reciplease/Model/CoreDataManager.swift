@@ -10,21 +10,21 @@ import Foundation
 import CoreData
 
 final class CoreDataManager {
-
+    
     // MARK: - Properties
-
+    
     private let coreDataStack: CoreDataStack
     private let managedObjectContext: NSManagedObjectContext
-
-    var favorite: [FavoriteRecipe] {
-        let request: NSFetchRequest<FavoriteRecipe> = FavoriteRecipe.fetchRequest()
+    
+    var favorite: [RecipeFavorite] {
+        let request: NSFetchRequest<RecipeFavorite> = RecipeFavorite.fetchRequest()
         request.sortDescriptors = [NSSortDescriptor(key: "label", ascending: true)]
         guard let favoriteRecipes = try? managedObjectContext.fetch(request) else { return [] }
         return favoriteRecipes
     }
-
+    
     // MARK: - Initializer
-
+    
     init(coreDataStack: CoreDataStack) {
         self.coreDataStack = coreDataStack
         self.managedObjectContext = coreDataStack.mainContext
@@ -32,20 +32,46 @@ final class CoreDataManager {
     
     // MARK: - Manage Recipe Entity
     
-    func addFavoriteRecipe(label: String){
-        let favoriteRecipe = FavoriteRecipe(context: managedObjectContext)
+    /// Store Recipe in CoreData
+    func addFavoriteRecipe(label: String, totalTime: String, yield: String, ingredients: [String],url: String, image: Data){
+        let favoriteRecipe = RecipeFavorite(context: managedObjectContext)
         favoriteRecipe.label = label
+        favoriteRecipe.totalTime = totalTime
+        favoriteRecipe.yield = yield
+        favoriteRecipe.ingredientLines = ingredients as [String]?
+        favoriteRecipe.url = url
+        favoriteRecipe.image = image
         coreDataStack.saveContext()
     }
     
-    func deleteFavoriteRecipe(_ favorite: FavoriteRecipe){
+    /// Delete favorite from FavoriteTableView
+    func deleteFavoriteRecipe(_ favorite: RecipeFavorite){
         coreDataStack.mainContext.delete(favorite)
-                do {
-                    try coreDataStack.mainContext.save()
-                } catch {
-                    print(error.localizedDescription)
-                }
-        
+        do {
+            try coreDataStack.mainContext.save()
+        } catch {
+            print(error.localizedDescription)
+        }
+    }
+    
+    /// Delete favorite from DetailFavorite
+    func deleteFromDetailFavorite(recipeName: String) {
+        let request: NSFetchRequest<RecipeFavorite> = RecipeFavorite.fetchRequest()
+        let predicate = NSPredicate(format: "label == %@", recipeName)
+        request.predicate = predicate
+        if let objectContext = try? managedObjectContext.fetch(request) {
+            objectContext.forEach { managedObjectContext.delete($0)}
+        }
+        coreDataStack.saveContext()
+    }
+    
+    /// Check if Recipe is favorite
+    func checkIfFavorite(recipeName: String) -> Bool {
+        let request: NSFetchRequest<RecipeFavorite> = RecipeFavorite.fetchRequest()
+        request.predicate = NSPredicate(format: "label == %@", recipeName)
+        guard let recipeSearch = try? managedObjectContext.fetch(request) else { return false }
+        if recipeSearch.isEmpty {return false}
+        return true
     }
     
 }

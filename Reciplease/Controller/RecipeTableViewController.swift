@@ -13,8 +13,7 @@ class RecipeTableViewController: UITableViewController {
     private let recipeCellID = "RecipeTableViewCell"
     var recipe: RecipeClass?
     var recipeList = [Hit]()
-    
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.tableFooterView = UIView()
@@ -26,11 +25,19 @@ class RecipeTableViewController: UITableViewController {
         tableView.register(recipeCell, forCellReuseIdentifier: recipeCellID)
     }
     
-        // MARK: - Segue
+    func convertImageDataFromUrl(stringImageUrl: String) -> Data{
+        guard let imageUrl = URL(string: stringImageUrl) else {return Data()}
+        guard let data = try? Data(contentsOf: imageUrl) else {return Data()}
+        return data
+    }
+    
+    // MARK: - Segue
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         guard let successVC = segue.destination as? DetailViewController  else { return }
-        successVC.recipe = self.recipe
+        guard let recipeName = recipe?.label,let recipeTime = recipe?.totalTime,let recipeUrl = recipe?.url,let recipeYield = recipe?.yield, let recipeIngredient = recipe?.ingredientLines, let imageUrl = recipe?.image else {return}
+        let recipeRepresentable = RecipeRepresentable(name: recipeName, totalTime: String(recipeTime), url: recipeUrl, yield: String(recipeYield), ingredientLines: recipeIngredient, image: convertImageDataFromUrl(stringImageUrl: imageUrl))
+        successVC.recipeData = recipeRepresentable
     }
 
     // MARK: - Table view data source and Delegate
@@ -46,7 +53,6 @@ class RecipeTableViewController: UITableViewController {
         let recipe = recipeList[indexPath.row].recipe
         cell.recipe = recipe
         return cell
-        
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -59,3 +65,5 @@ class RecipeTableViewController: UITableViewController {
     }
 
 }
+
+

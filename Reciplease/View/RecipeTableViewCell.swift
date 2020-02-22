@@ -14,33 +14,28 @@ class RecipeTableViewCell: UITableViewCell {
     var recipe: RecipeClass? {
         didSet {
             guard let recipe = recipe else{return}
-            recipeImage.sd_setImage(with: URL(string: "\(recipe.url)"), placeholderImage: UIImage(named: "placeholder.png"))
-            //recipeImage.loadIcon(recipe.image)
+            recipeImage.sd_setImage(with: URL(string: "\(recipe.image)"), placeholderImage: UIImage(named: "placeholder.png"))
             recipeTitleLabel.text = recipe.label
-            if recipe.totalTime >= 60 {
-                timeLabel.text = String(recipe.totalTime / 60) + " h " + String(recipe.totalTime % 60) + " min"
-            }else if recipe.totalTime == 0 {
-                timeLabel.text = "No time added"
-            } else {
-                timeLabel.text = String(recipe.totalTime) + " min"
-            }
+            timeLabel.text = (recipe.totalTime).convertTimeToString
             yieldLabel.text = String(Int(recipe.yield))            
         }
     }
     
-    var favoriteRecipe: FavoriteRecipe? {
+    var favoriteRecipe: RecipeFavorite? {
         didSet {
             guard let recipe = favoriteRecipe else{return}
-            //guard let totalTime = recipe.totalTime else {return}
-            //guard let yield = recipe.yield else {return}
-            guard let label = recipe.label else {return}
-            //timeLabel.text = totalTime
-            recipeTitleLabel.text = label
-            //yieldLabel.text = yield
+            guard let time = Int(recipe.totalTime ?? "0")?.convertTimeToString else{return}
+            let convertTime = String(time)
+            if let imageData = favoriteRecipe?.image {
+                recipeImage.image = UIImage(data: imageData)
+            }
+            recipeTitleLabel.text = recipe.label
+            timeLabel.text = recipe.totalTime
+            yieldLabel.text = recipe.yield
+            timeLabel.text = convertTime
+            
         }
     }
-    
-    
     
     @IBOutlet weak var recipeImage: UIImageView!
     @IBOutlet weak var timeLabel: UILabel!

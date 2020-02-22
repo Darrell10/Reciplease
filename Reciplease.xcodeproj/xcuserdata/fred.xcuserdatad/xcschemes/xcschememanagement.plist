@@ -7,7 +7,20 @@
 		<key>Reciplease.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>4</integer>
+			<integer>5</integer>
+		</dict>
+	</dict>
+	<key>SuppressBuildableAutocreation</key>
+	<dict>
+		<key>B6174D0E23F85AE000CFFBAE</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>B6B8F0CE23CE571D00E46295</key>
+		<dict>
+			<key>primary</key>
+			<true/>
 		</dict>
 	</dict>
 </dict>

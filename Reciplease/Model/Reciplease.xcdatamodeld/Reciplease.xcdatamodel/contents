@@ -1,9 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="15702" systemVersion="19D76" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
-    <entity name="FavoriteRecipe" representedClassName="FavoriteRecipe" syncable="YES" codeGenerationType="class">
+    <entity name="RecipeFavorite" representedClassName="RecipeFavorite" syncable="YES" codeGenerationType="class">
+        <attribute name="image" optional="YES" attributeType="Binary"/>
+        <attribute name="ingredientLines" optional="YES" attributeType="Transformable" customClassName="[String]"/>
         <attribute name="label" optional="YES" attributeType="String"/>
+        <attribute name="totalTime" optional="YES" attributeType="String"/>
+        <attribute name="url" optional="YES" attributeType="String"/>
+        <attribute name="yield" optional="YES" attributeType="String"/>
     </entity>
     <elements>
-        <element name="FavoriteRecipe" positionX="-63" positionY="-18" width="128" height="58"/>
+        <element name="RecipeFavorite" positionX="-54" positionY="36" width="128" height="133"/>
     </elements>
 </model>

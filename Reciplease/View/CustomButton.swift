@@ -1,5 +1,5 @@
 //
-//  DetailRecipeView.swift
+//  CustomButton.swift
 //  Reciplease
 //
 //  Created by Frederick Port on 04/02/2020.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class DetailRecipeView: UIView {
+class CustomButton: UIButton {
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -21,12 +21,10 @@ class DetailRecipeView: UIView {
     }
     
     func setup () {
-        layer.shadowColor = UIColor.darkGray.cgColor
-        layer.shadowRadius = 3
-        alpha = 0.95
-        layer.cornerRadius = 10
+        layer.cornerRadius = frame.width / 2
         layer.shadowOffset = CGSize(width: 0, height: 3)
-        layer.shadowOpacity = 0.75
+        layer.borderWidth = 3
+        layer.borderColor = UIColor.white.cgColor
     }
 }
 

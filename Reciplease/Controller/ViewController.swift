@@ -17,7 +17,6 @@ class ViewController: SOTabBarController {
         
         homeStoryboard.tabBarItem = UITabBarItem(title: "Search", image: UIImage(named: "ingredients"), selectedImage: UIImage(named: "ingredients_selected"))
         favoriteStoryboard.tabBarItem = UITabBarItem(title: "Favorite", image: UIImage(named: "favorite"), selectedImage: UIImage(named: "favorite_selected"))
-           
         viewControllers = [homeStoryboard, favoriteStoryboard]
     }
     

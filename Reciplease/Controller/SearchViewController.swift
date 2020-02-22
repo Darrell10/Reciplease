@@ -14,9 +14,10 @@ class SearchViewController: UIViewController {
     private let recipeService = RecipeService()
     private var recipesList = [Hit]()
     
+    
     @IBOutlet weak var ingredientTableView: UITableView! { didSet { ingredientTableView.tableFooterView = UIView() } }
     @IBOutlet weak var addIngredientTF: UITextField!
-    @IBOutlet weak var searchButton: UIButton!
+    @IBOutlet weak var searchButton: CustomButton!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
     

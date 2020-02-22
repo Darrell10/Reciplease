@@ -24,12 +24,19 @@ struct RecipeClass: Decodable {
     let label: String
     let image: String
     let url: String
-    let shareAs: String
     let yield: Int
-    //let healthLabels: [String]
     let ingredientLines: [String]
     let totalTime: Int
+}
 
+struct RecipeRepresentable {
+    let name: String
+    let totalTime: String
+    let url : String
+    let yield: String
+    let ingredientLines: [String]
+    let image: Data
+    //let image: String
 }
 
 

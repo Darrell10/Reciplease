@@ -1,0 +1,15 @@
+{
+"hits": [
+    {"recipe":
+        {"label": "Lemon Ice Cream and Raspberry Granita Sundaes",
+    "image":"https://www.edamam.com/web-img/6cb/6cbd701c45685c9bd1a30bc2c5e39755.jpg",
+    "url":"http://www.epicurious.com/recipes/food/views/Lemon-Ice-Cream-and-Raspberry-Granita-Sundaes-363752",
+    "yield": 2.0,
+    "ingredientLines": [
+        "16 ounces frozen unsweetened raspberries (about 3 cups), thawed",
+        "2 tablespoons plus 1/2 cup sugar",
+        "1 1/2 cups premium lemon ice cream"],
+    "totalTime": 515.0
+        }
+    }
+}

@@ -36,6 +36,4 @@ class RecipeService: MapperEncoder {
             callback(.success(dataDecoded))
         }
     }
-
-    
 }
