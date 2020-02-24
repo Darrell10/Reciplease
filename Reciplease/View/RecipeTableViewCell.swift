@@ -9,8 +9,11 @@
 import UIKit
 import SDWebImage
 
-class RecipeTableViewCell: UITableViewCell {
+final class RecipeTableViewCell: UITableViewCell {
     
+    // MARK: - Properties
+    
+    // Configuration cell for RecipeTableViewController
     var recipe: RecipeClass? {
         didSet {
             guard let recipe = recipe else{return}
@@ -21,6 +24,7 @@ class RecipeTableViewCell: UITableViewCell {
         }
     }
     
+    // Configuration cell for FavoriteTableViewCell
     var favoriteRecipe: RecipeFavorite? {
         didSet {
             guard let recipe = favoriteRecipe else{return}
@@ -33,9 +37,10 @@ class RecipeTableViewCell: UITableViewCell {
             timeLabel.text = recipe.totalTime
             yieldLabel.text = recipe.yield
             timeLabel.text = convertTime
-            
         }
     }
+    
+    // MARK: - Outlets
     
     @IBOutlet weak var recipeImage: UIImageView!
     @IBOutlet weak var timeLabel: UILabel!

@@ -29,6 +29,9 @@ final class CoreDataManager {
         self.coreDataStack = coreDataStack
         self.managedObjectContext = coreDataStack.mainContext
     }
+}
+
+extension CoreDataManager {
     
     // MARK: - Manage Recipe Entity
     

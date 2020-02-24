@@ -10,12 +10,19 @@ import Foundation
 
 class RecipeService: MapperEncoder {
     
+    // MARK: - Properties
+    
     private let session: AlamoSession
+    
+    // MARK: - Initializer
     
     init(session: AlamoSession = EdamanSession()) {
         self.session = session
     }
     
+    // MARK: - API function
+    
+    /// Get Recipe from Edaman API
     func getRecipe(text:[String], callback: @escaping (Result<Recipe, Error>) -> Void) {
         guard let url = URL(string: "https://api.edamam.com/search?") else { return }
         let params = ["q": "\(text)", "app_key": ApiConfig.edamanKey, "app_id": ApiConfig.edamanAppId]

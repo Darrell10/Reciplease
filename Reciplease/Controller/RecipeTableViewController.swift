@@ -10,17 +10,22 @@ import UIKit
 
 final class RecipeTableViewController: UITableViewController {
     
-        // MARK: - Property
+    // MARK: - Properties
     
     private let recipeCellID = "RecipeTableViewCell"
     var recipe: RecipeClass?
     var recipeList = [Hit]()
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.tableFooterView = UIView()
         registerTableViewCells()
     }
+}
+
+extension RecipeTableViewController {
+    
+    // MARK: - Methods
     
     // Load Xib Cell
     private func registerTableViewCells(){
@@ -34,8 +39,11 @@ final class RecipeTableViewController: UITableViewController {
         guard let data = try? Data(contentsOf: imageUrl) else {return Data()}
         return data
     }
+}
+
+extension RecipeTableViewController {
     
-    // MARK: - Segue
+        // MARK: - Segue
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         guard let successVC = segue.destination as? DetailViewController  else { return }
@@ -43,17 +51,18 @@ final class RecipeTableViewController: UITableViewController {
         let recipeRepresentable = RecipeRepresentable(name: recipeName, totalTime: String(recipeTime), url: recipeUrl, yield: String(recipeYield), ingredientLines: recipeIngredient, image: convertImageDataFromUrl(stringImageUrl: imageUrl))
         successVC.recipeData = recipeRepresentable
     }
+}
 
+extension RecipeTableViewController {
+    
     // MARK: - Table view data source and Delegate
-
+    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return recipeList.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: recipeCellID, for: indexPath) as? RecipeTableViewCell else {
-            return UITableViewCell()
-        }
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: recipeCellID, for: indexPath) as? RecipeTableViewCell else {return UITableViewCell()}
         let recipe = recipeList[indexPath.row].recipe
         cell.recipe = recipe
         return cell
@@ -67,7 +76,7 @@ final class RecipeTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return view.frame.height / 3
     }
-
+    
 }
 
 

@@ -8,22 +8,28 @@
 
 import UIKit
 
-class SearchViewController: UIViewController {
+final class SearchViewController: UIViewController {
+    
+    // MARK: - Properties
     
     private var ingredientsList = [String]()
     private let recipeService = RecipeService()
     private var recipesList = [Hit]()
-    
     
     @IBOutlet weak var ingredientTableView: UITableView! { didSet { ingredientTableView.tableFooterView = UIView() } }
     @IBOutlet weak var addIngredientTF: UITextField!
     @IBOutlet weak var searchButton: CustomButton!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
     }
+    
+}
+
+extension SearchViewController {
+    
+    // MARK: - Action Button
     
     @IBAction func addBt(_ sender: Any) {
         guard let ingredientToAdd = addIngredientTF.text else {return}
@@ -49,6 +55,12 @@ class SearchViewController: UIViewController {
         }
     }
     
+}
+
+extension SearchViewController {
+    
+    // MARK: - Methods
+    
     private func getRecipeList() {
         toggleActivityIndicator(shown: true)
         recipeService.getRecipe(text: ingredientsList) { result in
@@ -73,17 +85,25 @@ class SearchViewController: UIViewController {
         activityIndicator.isHidden = !shown
     }
     
+}
+
+extension SearchViewController {
+    
+    // MARK: - prepare Segue
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "RecipeListSegue" {
             guard let successVC = segue.destination as? RecipeTableViewController else { return }
             successVC.recipeList = recipesList
         }
     }
+    
 }
 
-// MARK: - Table View DataSource
-
 extension SearchViewController: UITableViewDataSource {
+    
+    // MARK: - Table View DataSource
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return ingredientsList.count
     }
@@ -93,11 +113,13 @@ extension SearchViewController: UITableViewDataSource {
         cell.textLabel?.text = ingredientsList[indexPath.row]
         return cell
     }
+    
 }
 
-// MARK: - Table View Delegate
-
 extension SearchViewController: UITableViewDelegate {
+    
+    // MARK: - Table View Delegate
+    
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             ingredientsList.remove(at: indexPath.row)
@@ -108,12 +130,12 @@ extension SearchViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 40
     }
+    
 }
 
-
-// MARK: - Dismiss Keyboard
-
 extension SearchViewController : UITextFieldDelegate {
+    
+    // MARK: - Dismiss Keyboard
     
     @IBAction func dismissKeyboard(_ sender: UITapGestureRecognizer) {
         addIngredientTF.resignFirstResponder()
@@ -123,4 +145,5 @@ extension SearchViewController : UITextFieldDelegate {
         textField.resignFirstResponder()
         return true
     }
+    
 }

@@ -8,7 +8,10 @@
 
 import Foundation
 
-class ApiConfig {
+final class ApiConfig {
+    
+    // MARK: - Properties
+    
     static let edamanKey = "54a9e75cda590c8843e4394203075558"
     static let edamanAppId = "e956692d"
 }

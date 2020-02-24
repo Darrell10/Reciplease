@@ -10,7 +10,7 @@ import UIKit
 
 class FavoriteTableViewController: UITableViewController {
     
-    // MARK: - Property
+    // MARK: - Properties
     
     private let recipeCellID = "RecipeTableViewCell"
     private var coreDataManager: CoreDataManager?
@@ -34,8 +34,9 @@ class FavoriteTableViewController: UITableViewController {
         let recipeCell = UINib(nibName: recipeCellID, bundle: nil)
         tableView.register(recipeCell, forCellReuseIdentifier: recipeCellID)
     }
-    
-    //@IBAction func unwindToWelcome(segue:UIStoryboardSegue) { }
+}
+
+extension FavoriteTableViewController {
     
     // MARK: - Segue
     
@@ -45,6 +46,9 @@ class FavoriteTableViewController: UITableViewController {
         let recipeRepresentable = RecipeRepresentable(name: recipeName, totalTime: String(recipeTime), url: recipeUrl, yield: String(recipeYield), ingredientLines: recipeIngredient, image: recipeImage)
         successVC.recipeData = recipeRepresentable
     }
+}
+
+extension FavoriteTableViewController {
     
     // MARK: - Table view data source and Delegate
     
@@ -54,9 +58,7 @@ class FavoriteTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: recipeCellID, for: indexPath) as? RecipeTableViewCell else {
-            return UITableViewCell()
-        }
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: recipeCellID, for: indexPath) as? RecipeTableViewCell else {return UITableViewCell()}
         let favoriteRecipe = coreDataManager?.favorite[indexPath.row]
         cell.favoriteRecipe = favoriteRecipe
         return cell

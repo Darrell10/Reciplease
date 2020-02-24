@@ -11,8 +11,11 @@ import SDWebImage
 
 final class DetailViewController: UIViewController {
     
+    // MARK: - Properties
+    
     var recipeData: RecipeRepresentable?
     private var coreDataManager: CoreDataManager?
+    var isInFavorite: Bool = false
     
     @IBOutlet weak var titleRecipeLabel: UILabel!
     @IBOutlet weak var recipeIV: UIImageView!
@@ -20,25 +23,26 @@ final class DetailViewController: UIViewController {
     @IBOutlet weak var timeLabel: UILabel!
     @IBOutlet weak var ingredientLine: UITableView! { didSet { ingredientLine.tableFooterView = UIView() } }
     
-    
-
-    
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         guard let appdelegate = UIApplication.shared.delegate as? AppDelegate else { return }
         let coredataStack = appdelegate.coreDataStack
         coreDataManager = CoreDataManager(coreDataStack: coredataStack)
         updateView()
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         checkFavorite()
     }
+}
+
+extension DetailViewController {
     
-    func updateView() {
+    // MARK: - Methods
+    
+    // Update View
+    private func updateView() {
         titleRecipeLabel.text = recipeData?.name
         guard let time = Int(recipeData?.totalTime ?? "0")?.convertTimeToString else{return}
         let convertTime = String(time)
@@ -46,18 +50,9 @@ final class DetailViewController: UIViewController {
         recipeIV.image = UIImage(data: recipeData!.image)
     }
     
-    // MARK: - CoreDataManager Functions
-    
     // Store favorite recipe
     private func storeFavorite(){
-        coreDataManager?.addFavoriteRecipe(
-            label: recipeData!.name,
-            totalTime: String(recipeData!.totalTime),
-            yield: String(recipeData!.yield),
-            ingredients: recipeData!.ingredientLines,
-            url: recipeData!.url,
-            image: recipeData!.image
-        )
+        coreDataManager?.addFavoriteRecipe(label: recipeData!.name,totalTime: String(recipeData!.totalTime),yield: String(recipeData!.yield),ingredients: recipeData!.ingredientLines,url: recipeData!.url,image: recipeData!.image)
     }
     
     // Delete favorite Recipe
@@ -71,23 +66,36 @@ final class DetailViewController: UIViewController {
         guard let recipeLabel = recipeData?.name else { return }
         guard coreDataManager?.checkIfFavorite(recipeName: recipeLabel) == true else {
             favoriteRecipeBtn.image = UIImage(named: "favorite")
+            isInFavorite = false
             return }
         favoriteRecipeBtn.image = UIImage(named: "favorite_selected")
+        isInFavorite = true
     }
     
-    // MARK: - Action buttons
-    
-    @IBAction func toggleFavorite(_ sender: UIBarButtonItem) {
-        if favoriteRecipeBtn.image == UIImage(named: "favorite") {
-            favoriteRecipeBtn.image = UIImage(named: "favorite_selected")
-            storeFavorite()
-        } else {
-            favoriteRecipeBtn.image = UIImage(named: "favorite")
-            deleteFavorite()
+    // return to favorite list if recipe was favorite
+    private func returnToFavorite() {
+        if isInFavorite == true {
             navigationController?.popViewController(animated: true)
         }
     }
+}
+
+extension DetailViewController {
     
+    // MARK: - Action buttons
+
+    @IBAction func toggleFavorite(_ sender: UIBarButtonItem) {
+        guard let recipeLabel = recipeData?.name else { return }
+        guard coreDataManager?.checkIfFavorite(recipeName: recipeLabel) == false else {
+            favoriteRecipeBtn.image = UIImage(named: "favorite")
+            deleteFavorite()
+            returnToFavorite()
+            return
+        }
+        favoriteRecipeBtn.image = UIImage(named: "favorite_selected")
+        storeFavorite()
+    }
+
     @IBAction func getDirectionButton(_ sender: Any) {
         guard let urlString = recipeData?.url else {return}
         guard let url = URL(string: urlString)else{return}
@@ -95,14 +103,13 @@ final class DetailViewController: UIViewController {
     }
 }
 
-// MARK: - ingredients Table view
-
 extension DetailViewController: UITableViewDelegate, UITableViewDataSource {
+    
+    // MARK: - ingredients Table view
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
         guard let recipe = self.recipeData else {return 0}
         return recipe.ingredientLines.count
-        
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

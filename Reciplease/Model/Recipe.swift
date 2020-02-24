@@ -29,6 +29,7 @@ struct RecipeClass: Decodable {
     let totalTime: Int
 }
 
+// MARK: - RecipeRepresentable
 struct RecipeRepresentable {
     let name: String
     let totalTime: String
@@ -36,7 +37,6 @@ struct RecipeRepresentable {
     let yield: String
     let ingredientLines: [String]
     let image: Data
-    //let image: String
 }
 
 
