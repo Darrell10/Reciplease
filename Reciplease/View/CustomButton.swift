@@ -24,7 +24,7 @@ class CustomButton: UIButton {
         layer.cornerRadius = frame.width / 2
         layer.shadowOffset = CGSize(width: 0, height: 3)
         layer.borderWidth = 3
-        layer.borderColor = UIColor.white.cgColor
+        layer.borderColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
     }
 }
 

@@ -24,7 +24,7 @@ final class RecipeTableViewCell: UITableViewCell {
         }
     }
     
-    // Configuration cell for FavoriteTableViewCell
+    // Configuration cell for FavoriteTableViewController
     var favoriteRecipe: RecipeFavorite? {
         didSet {
             guard let recipe = favoriteRecipe else{return}

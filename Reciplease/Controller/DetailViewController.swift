@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import SDWebImage
 
 final class DetailViewController: UIViewController {
     
@@ -41,7 +40,7 @@ extension DetailViewController {
     
     // MARK: - Methods
     
-    // Update View
+    /// Update DetailView
     private func updateView() {
         titleRecipeLabel.text = recipeData?.name
         guard let time = Int(recipeData?.totalTime ?? "0")?.convertTimeToString else{return}
@@ -50,18 +49,18 @@ extension DetailViewController {
         recipeIV.image = UIImage(data: recipeData!.image)
     }
     
-    // Store favorite recipe
+    /// Store favorite recipe
     private func storeFavorite(){
         coreDataManager?.addFavoriteRecipe(label: recipeData!.name,totalTime: String(recipeData!.totalTime),yield: String(recipeData!.yield),ingredients: recipeData!.ingredientLines,url: recipeData!.url,image: recipeData!.image)
     }
     
-    // Delete favorite Recipe
+    /// Delete favorite Recipe
     private func deleteFavorite(){
         guard let recipeLabel = recipeData?.name else { return }
         coreDataManager?.deleteFavorite(recipeName: recipeLabel)
     }
     
-    // check if recipe is favorite
+    /// check if recipe is favorite
     private func checkFavorite() {
         guard let recipeLabel = recipeData?.name else { return }
         guard coreDataManager?.checkIfFavorite(recipeName: recipeLabel) == true else {
@@ -72,7 +71,7 @@ extension DetailViewController {
         isInFavorite = true
     }
     
-    // return to favorite list if recipe was favorite
+    /// return to favorite list if recipe was favorite
     private func returnToFavorite() {
         if isInFavorite == true {
             navigationController?.popViewController(animated: true)

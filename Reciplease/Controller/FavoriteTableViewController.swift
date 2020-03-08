@@ -52,7 +52,7 @@ extension FavoriteTableViewController {
     
     // MARK: - Table view data source and Delegate
     
-    // Show number of row
+    /// Show number of row
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return coreDataManager?.favorite.count ?? 0
     }
@@ -64,7 +64,7 @@ extension FavoriteTableViewController {
         return cell
     }
     
-    // Delete Recipe from tableView swipe
+    /// Delete Recipe from tableView swipe
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             guard let recipeToDelete = coreDataManager?.favorite[indexPath.row].label else { return }

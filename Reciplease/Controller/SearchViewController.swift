@@ -21,10 +21,12 @@ final class SearchViewController: UIViewController {
     @IBOutlet weak var searchButton: CustomButton!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
+    @IBOutlet weak var addIngredientBtn: CustomButton!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        addIngredientBtn.layer.borderColor = #colorLiteral(red: 0.2146113515, green: 0.1995624304, blue: 0.1954028606, alpha: 1)
     }
-    
 }
 
 extension SearchViewController {
@@ -61,6 +63,7 @@ extension SearchViewController {
     
     // MARK: - Methods
     
+    /// Call Adaman API function
     private func getRecipeList() {
         toggleActivityIndicator(shown: true)
         recipeService.getRecipe(text: ingredientsList) { result in
@@ -80,6 +83,7 @@ extension SearchViewController {
         }
     }
     
+    /// shown or unshown toggle Activity Indicator
     private func toggleActivityIndicator (shown: Bool) {
         searchButton.isHidden = shown
         activityIndicator.isHidden = !shown

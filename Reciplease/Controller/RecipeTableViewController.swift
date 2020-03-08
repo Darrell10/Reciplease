@@ -27,13 +27,13 @@ extension RecipeTableViewController {
     
     // MARK: - Methods
     
-    // Load Xib Cell
+    /// Load Xib Cell
     private func registerTableViewCells(){
         let recipeCell = UINib(nibName: recipeCellID, bundle: nil)
         tableView.register(recipeCell, forCellReuseIdentifier: recipeCellID)
     }
     
-    // Convert image Url to Data
+    /// Convert image Url to Data
     private func convertImageDataFromUrl(stringImageUrl: String) -> Data{
         guard let imageUrl = URL(string: stringImageUrl) else {return Data()}
         guard let data = try? Data(contentsOf: imageUrl) else {return Data()}
